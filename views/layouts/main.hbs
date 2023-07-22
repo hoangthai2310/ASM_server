@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Sales Manager</title>
+    <style>
+        .row {
+            height: 100vh;
+            /* Set chiều cao của phần tử bằng 100% chiều cao của viewport */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-{breakpoint} d-flex flex-column min-vh-100">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary topnav">
+            <a class="navbar-brand" href="/home">My Website</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Trang chủ<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/info">Cá nhân</a>
+                    </li>
+                </ul>
+                <button class="btn btn-danger" onclick="logout()">Đăng xuất</button>
+            </div>
+        </nav>
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-secondary sidebar">
+                {{#if user.admin}}
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" href="/home">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/qlsp">Quản lý sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/qluser">Quản lý người dùng</a>
+                        </li>
+                    </ul>
+                </div>
+                {{/if}}
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                {{{body}}}
+            </main>
+        </div>
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container">
+                <span class="text-muted">My Website 2023</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Link to jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        function logout(){
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/";
+        }
+    </script>
+</body>
+
+</html>

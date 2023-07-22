@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Log In / Sign Up | UsmanLiaqat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css" />
+    <link rel="stylesheet" href="../StyleSheet/login.css">
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <h6 class="mb-0 pb-3">
+                            <span>Log In </span><span>Sign Up</span>
+                        </h6>
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                        <label for="reg-log"></label>
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                                <div class="card-front">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Log In</h4>
+                                            <form action="/login" method="post" class="form" id="formlogin">
+                                                <div class="form-group">
+                                                    <input type="email" name="logemail" class="form-style"
+                                                        placeholder="Your Email" id="logemail" autocomplete="off"
+                                                        required />
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="logpass" class="form-style"
+                                                        placeholder="Your Password" id="logpass" autocomplete="off"
+                                                        required />
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                <input id="a" type="submit" name="login" class="btn mt-4"
+                                                    value="Submit">
+                                                <p class="mb-0 mt-4 text-center">
+                                            </form>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="">Sign Up</h4>
+                                            <form id="form-sigup" action="/signup" method="post">
+                                                <div class="imgpicker">
+                                                    <img id="sigImage"
+                                                        style="width: 90px;height: 90px;border-radius: 60%;"
+                                                        src="../Image/avatar-mac-dinh-1.png" name="sigimg" alt=""
+                                                        srcset="">
+                                                    <input type="file" id="file-input" style="display:none" accept="image/*">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="signame" class="form-style"
+                                                        placeholder="Your Full Name" value="" id="signame"
+                                                        autocomplete="off" required />
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="email" name="sigemail" class="form-style"
+                                                        placeholder="Your Email" value="" id="sigemail"
+                                                        autocomplete="off" required />
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="sigpass" class="form-style"
+                                                        placeholder="Your Password" value="" id="sigpass"
+                                                        autocomplete="off" required />
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                <input id="a" name="signup" class="btn mt-4" type="submit"
+                                                    value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- partial -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        var image = document.getElementById('sigImage');
+
+        image.addEventListener('click', function () {
+            document.getElementById('file-input').click();
+        })
+
+        document.getElementById('file-input').addEventListener('change', function () {
+            var file = this.files[0];
+            console.log(file);
+            var reader = new FileReader();
+            reader.onloadend = function (event) {
+                // Xử lý chuỗi base64 để tạo đường dẫn URL
+                image.src = event.target.result;
+
+            }
+            reader.readAsDataURL(file);
+
+        });
+    </script>
+    <script src="../Scrip/login.js"></script>
+</body>
+
+</html>

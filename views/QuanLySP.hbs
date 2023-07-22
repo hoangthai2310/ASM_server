@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+    <style>
+        #thugon {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        @media screen and (max-width: 768px) {
+            #thugon {
+                display: block;
+            }
+        }
+
+        .table-responsive {
+            height: 100vh;
+            /* Đặt chiều cao của phần tử cha */
+            overflow-y: scroll;
+            /* Cho phép cuộn theo chiều dọc */
+        }
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .search-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #0062cc;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="table-responsive">
+        <div style="display: flex;" class="d-flex justify-content-between">
+            <button id="btnshow" style="margin-bottom: 10px;" data-target="#demo" class="btn btn-primary">Thêm
+                sản phẩm</button>
+            <form action="/qlsp/search" method="post" id="formsearch" class="search-form col-sm-4"
+                style="margin:0 5px 10px 0;">
+                <input id="namesearch" name="namesearch" type="text" class="search-input"
+                    placeholder="Tìm kiếm tên sản phẩm..." style="border: 1px solid #ccc;">
+                <button type="submit" class="search-button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div id="demo" style="margin-bottom: 10px; display: none;">
+            <form action="#" id="formsubmit">
+                <div id="thugon">
+                    <div class="form-group text-center col-sm-3" style="height: 160px;">
+                        <img style="width: 150px;height: 150px;" src="../Image/avatar-mac-dinh-1.png" alt="avatar" class="rounded-circle" id="imgproduct">
+                        <input type="file" id="file-input" name="image" style="display:none" accept="image/*">
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="nameproduct">Name Product</label>
+                            <input type="text" class="form-control" id="nameproduct" placeholder="Enter name product"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" placeholder="Enter price" required>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <input type="text" class="form-control" id="color" placeholder="Enter color" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" value="quần" id="check-quan" name="type"
+                                    checked required>
+                                <label class="form-check-label" for="check-quan">
+                                    Quần
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" value="áo" id="check-ao" name="type"
+                                    required>
+                                <label class="form-check-label" for="check-ao">
+                                    Áo
+                                </label>
+                            </div>
+                        </div>
+                        <input type="text" name="" id="idproduct" style="display: none;">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Image</th>
+                    <th>NameProduct</th>
+                    <th>Price</th>
+                    <th>Color</th>
+                    <th>Type</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each posts}}
+                <tr>
+                    <td>{{inc @index}}</td>
+                    <td><img style="width: 50px;height: 50px;border-radius: 60%;" src="/Image/{{this.image}}" alt="" srcset="">
+                    </td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.color}}</td>
+                    <td>{{this.type}}</td>
+                    <td>
+                        <i id="delete" class="fa-sharp fa-solid fa-trash" onclick="btnDeleteClick('{{this._id}}')"></i>
+                        <i id="update" class="fa-sharp fa-solid fa-pen"
+                            onclick="btnUpdateClick(event,'{{this._id}}')"></i>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/242d645205.js" crossorigin="anonymous"></script>
+
+
+    <script src="../Scrip/QuanLySP.js"></script>
+</body>
+
+</html>

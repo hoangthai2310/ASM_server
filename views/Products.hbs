@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .card-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="height: 95vh;overflow-y: scroll;">
+        <div class="card-deck">
+            {{#each posts}}
+            <div class="card">
+                <img src="Image/{{this.image}}" class="card-img-top" alt="Product 1">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text text-danger">${{this.price}}</p>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#my-dialog" onclick="showDialog('{{this.name}}','{{this.price}}','{{this.color}}','{{this.type}}',)">Xem thêm</a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="my-dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin chi tiết</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Tên sản phẩm:</label>
+                        <input type="text" class="form-control" id="name" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Giá:</label>
+                        <input type="text" class="form-control" id="price" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Màu sắc:</label>
+                        <input type="text" class="form-control" id="color" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Loại sản phẩm:</label>
+                        <input type="text" class="form-control" id="type"disabled>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function showDialog(name,price,color,type){
+            document.getElementById('name').value = name;
+            document.getElementById('price').value = '$' + price;
+            document.getElementById('color').value = color;
+            document.getElementById('type').value = type;
+        }
+    </script>
+</body>
+
+</html>

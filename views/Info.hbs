@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Profile</title>
+    <!-- Load Bootstrap 4 CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="col-md-6 offset-md-3">
+        <h3 class="text-center">User info</h3>
+        <form id="profile-form">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="imgpicker">
+                    <img id="ifoimage" style="width: 120px;height: 120px;border-radius: 90%;" src="Image/{{user.image}}"
+                        name="ifoimage" alt="" srcset="">
+                    <input type="file" id="file-input" style="display:none" accept="image/*">
+                </div>
+            </div>
+            <input type="textid" name="" id="txtid" style="display: none;" value="{{user._id}}">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" required
+                    value="{{user.fullname}}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required value="{{user.email}}"
+                    readonly>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control-file" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confimtpassword">Confimt Password</label>
+                <input type="password" class="form-control-file" id="confimtpassword" name="confimtpassword"
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary">Chỉnh sửa<a href="http://" target="_blank" rel="noopener noreferrer"></a><a href=""></a></button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Load Bootstrap 4 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <!-- Load your custom JS -->
+    <script>
+        var image = document.getElementById('ifoimage');
+
+        image.addEventListener('click', function () {
+            document.getElementById('file-input').click();
+        })
+        document.getElementById('file-input').addEventListener('change', function () {
+            var file = this.files[0];
+            console.log(file);
+            var reader = new FileReader();
+            reader.onloadend = function (event) {
+                // Xử lý chuỗi base64 để tạo đường dẫn URL
+                image.src = event.target.result;
+
+            }
+            reader.readAsDataURL(file);
+
+        });
+    </script>
+    <script src="../Scrip/Info.js"></script>
+</body>
+
+</html>
